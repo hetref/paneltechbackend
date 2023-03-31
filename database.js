@@ -85,24 +85,30 @@ const addquotation = async (
   return result;
 };
 
-const getquotationofuser = async (clientId) => {
+const getquotationofuser = async (client_id) => {
   const [result] = await pool.query(
     `
-          SELECT * FROM quotation WHERE client_id=${clientId}
+          SELECT * FROM quotation WHERE client_id=${client_id}
       `
   );
 
   return result;
 };
 
-const getquotation = async (clientId, revised_no) => {
+const getquotation = async (client_id, revised_no) => {
   const [result] = await pool.query(
     `
-          SELECT * FROM quotation WHERE client_id=${clientId} AND revised_no=${revised_no}
+          SELECT * FROM quotation WHERE client_id=${client_id} AND revised_no=${revised_no}
       `
   );
 
   return result;
 };
 
-module.exports = { addClients, getClients };
+module.exports = {
+  addClients,
+  getClients,
+  addquotation,
+  getquotation,
+  getquotationofuser,
+};
