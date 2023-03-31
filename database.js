@@ -105,10 +105,68 @@ const getquotation = async (client_id, revised_no) => {
   return result;
 };
 
+const additem = async (
+  model_no,
+  hsn_code,
+  quantity,
+  unit_price,
+  item_description,
+  item_id,
+  client_id,
+  quotation_id,
+  revised_no,
+  revised_no_quotation
+) => {
+  const [result] = await pool.query(
+    `
+          INSERT INTO items (model_no, hsn_code, quantity, unit_price, item_description, item_id, client_id, quotation_id, revised_no, revised_no_quotation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `,
+    [
+      model_no,
+      hsn_code,
+      quantity,
+      unit_price,
+      item_description,
+      item_id,
+      client_id,
+      quotation_id,
+      revised_no,
+      revised_no_quotation,
+    ]
+  );
+
+  return result;
+};
+
+const getitem = async (client_id) => {
+  const [result] = await pool.query(
+    `
+      SELECT * FROM items WHERE client_id=${client_id}
+    `
+  );
+
+  return result;
+};
+
+const getitemwithquotation = async (client_id, quotation_id) => {
+  const [result] = await pool.query(
+    `
+          SELECT * FROM items WHERE client_id=${client_id} AND quotation_id=${quotation_id}
+      `
+  );
+
+  return result;
+};
+
 module.exports = {
   addClients,
   getClients,
   addquotation,
   getquotation,
   getquotationofuser,
+  getitem,
+  getitemwithquotation,
+  additem,
+  getitem,
+  getitemwithquotation,
 };

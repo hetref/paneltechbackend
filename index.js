@@ -4,6 +4,9 @@ const {
   addquotation,
   getquotationofuser,
   getquotation,
+  additem,
+  getitem,
+  getitemwithquotation,
 } = require("./database");
 
 const app = express();
@@ -93,6 +96,48 @@ app.get("/get-quotation-user", async (req, res) => {
 app.get("/get-quotation", async (req, res) => {
   const { client_id, revised_no } = req.body;
   const quotation = await getquotation(client_id, revised_no);
+  res.status(201).send(quotation);
+});
+
+// Items
+
+app.post("/add-item", async (req, res) => {
+  const {
+    model_no,
+    hsn_code,
+    quantity,
+    unit_price,
+    item_description,
+    item_id,
+    client_id,
+    quotation_id,
+    revised_no,
+    revised_no_quotation,
+  } = req.body;
+  const item = await additem(
+    model_no,
+    hsn_code,
+    quantity,
+    unit_price,
+    item_description,
+    item_id,
+    client_id,
+    quotation_id,
+    revised_no,
+    revised_no_quotation
+  );
+  res.status(201).send(item);
+});
+
+app.get("/get-item", async (req, res) => {
+  const { client_id } = req.body;
+  const quotationofuser = await getitem(client_id);
+  res.status(201).send(quotationofuser);
+});
+
+app.get("/get-item-quotation", async (req, res) => {
+  const { client_id, quotation_id } = req.body;
+  const quotation = await getitemwithquotation(client_id, quotation_id);
   res.status(201).send(quotation);
 });
 
