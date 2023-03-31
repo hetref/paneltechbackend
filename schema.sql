@@ -25,4 +25,8 @@ CREATE TABLE quotation (
     contact_person_email TEXT NOT NULL,
     client_id integer NOT NULL,
     revised_no integer NOT  NULL
-)
+);
+
+INSERT INTO quotation 
+(customer_enquiry_no, enquiry_date, contact_person, contact_person_phone, contact_person_email, client_id, revised_no)
+VALUES ("121", NOW(), "Aryan Shinde", "8097296453", "shindearyan179@gmail.com", "1", "0");
