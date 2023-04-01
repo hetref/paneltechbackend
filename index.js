@@ -7,11 +7,23 @@ const {
   additem,
   getitem,
   getitemwithquotation,
+  addnote,
+  getnotewithquotationandrevised,
+  getnotewithquotation,
+  getnote,
+  addterm,
+  gettermwithquotationandrevised,
+  gettermwithquotation,
+  getterm,
 } = require("./database");
 
 const app = express();
 
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 // Add Clients
 
@@ -141,6 +153,114 @@ app.get("/get-item-quotation", async (req, res) => {
   res.status(201).send(quotation);
 });
 
-app.listen(8000, (req, res) => {
-  console.log("Listening on port 8000");
+// Notes & Deviation
+
+app.post("/add-note", async (req, res) => {
+  const {
+    note_description,
+    client_id,
+    quotation_id,
+    revised_no,
+    revised_no_quotation,
+  } = req.body;
+  const note = await addnote(
+    note_description,
+    client_id,
+    quotation_id,
+    revised_no,
+    revised_no_quotation
+  );
+  res.status(201).send(note);
+});
+
+app.get("/get-note", async (req, res) => {
+  const { client_id } = req.body;
+  const note = await getnote(client_id);
+  res.status(201).send(note);
+});
+
+app.get("/get-note-quotation", async (req, res) => {
+  const { client_id, quotation_id } = req.body;
+  const note = await getnotewithquotation(client_id, quotation_id);
+  res.status(201).send(note);
+});
+
+app.get("/get-note-quotation-revised", async (req, res) => {
+  const { client_id, quotation_id, revised_no_quotation } = req.body;
+  const note = await getnotewithquotationandrevised(
+    client_id,
+    quotation_id,
+    revised_no_quotation
+  );
+  res.status(201).send(note);
+});
+
+// Terms & Conditions
+
+app.post("/add-term", async (req, res) => {
+  const {
+    price,
+    delivery,
+    p_and_f,
+    feight,
+    transit_insurance,
+    gst,
+    payment_terms,
+    validity,
+    penalty_clause,
+    warrenty,
+    cancellation_charges,
+    commission_supervision,
+    forex,
+    client_id,
+    quotation_id,
+    revised_no,
+    revised_no_quotation,
+  } = req.body;
+  const term = await addterm(
+    price,
+    delivery,
+    p_and_f,
+    feight,
+    transit_insurance,
+    gst,
+    payment_terms,
+    validity,
+    penalty_clause,
+    warrenty,
+    cancellation_charges,
+    commission_supervision,
+    forex,
+    client_id,
+    quotation_id,
+    revised_no,
+    revised_no_quotation
+  );
+  res.status(201).send(term);
+});
+
+app.get("/get-term", async (req, res) => {
+  const { client_id } = req.body;
+  const term = await getterm(client_id);
+  res.status(201).send(term);
+});
+
+app.get("/get-term-quotation", async (req, res) => {
+  const { client_id, quotation_id } = req.body;
+  const term = await gettermwithquotation(client_id, quotation_id);
+  res.status(201).send(term);
+});
+
+app.get("/get-term-quotation-revised", async (req, res) => {
+  const { client_id, quotation_id, revised_no_quotation } = req.body;
+  const term = await gettermwithquotationandrevised(
+    client_id,
+    quotation_id,
+    revised_no_quotation
+  );
+  res.status(201).send(term);
+});
+
+app.listen(8080, (req, res) => {
+  console.log("Listening on port 8080");
 });
