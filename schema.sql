@@ -38,7 +38,6 @@ CREATE TABLE items (
     quantity integer NOT NULL,
     unit_price integer NOT NULL,
     item_description TEXT NOT NULL,
-    item_id integer NOT NULL,
     client_id integer NOT NULL,
     quotation_id integer NOT NULL,
     revised_no integer NOT NULL,
@@ -47,8 +46,10 @@ CREATE TABLE items (
 )
 
 INSERT INTO items 
-(model_no, hsn_code, quantity, unit_price, item_description, item_id, client_id, quotation_id, revised_no, revised_no_quotation) 
-VALUES ("1092837465", "4e7f7w8efw8yf9f8", "2", "20000", "   This is a description", "12", "1", "1", "0", "1");
+(model_no, hsn_code, quantity, unit_price, item_description, client_id, quotation_id, revised_no, revised_no_quotation) 
+VALUES ("1092837465", "4e7f7w8efw8yf9f8", "2", "20000", "This is a description", "1", "1", "0", "1");
+
+DELETE FROM items WHERE id=7;
 
 CREATE TABLE notes (
     id integer PRIMARY KEY AUTO_INCREMENT,

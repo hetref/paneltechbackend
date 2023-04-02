@@ -166,6 +166,18 @@ const getitemwithquotation = async (client_id, quotation_id) => {
   return result;
 };
 
+const deleteitem = async (id) => {
+  const [result] = await pool.query(
+    `
+      DELETE FROM items WHERE id=${id}
+    `
+  );
+
+  return result;
+};
+
+// Notes
+
 const addnote = async (
   note_description,
   client_id,
@@ -317,6 +329,7 @@ module.exports = {
   additem,
   getitem,
   getitemwithquotation,
+  deleteitem,
   addnote,
   getnote,
   getnotewithquotation,

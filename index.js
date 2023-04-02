@@ -18,6 +18,7 @@ const {
   getterm,
   getClients,
   getClient,
+  deleteitem,
 } = require("./database");
 
 const app = express();
@@ -111,7 +112,6 @@ app.post("/add-item", async (req, res) => {
     quantity,
     unit_price,
     item_description,
-    item_id,
     client_id,
     quotation_id,
     revised_no,
@@ -123,7 +123,6 @@ app.post("/add-item", async (req, res) => {
     quantity,
     unit_price,
     item_description,
-    item_id,
     client_id,
     quotation_id,
     revised_no,
@@ -138,10 +137,16 @@ app.get("/get-item", async (req, res) => {
   res.status(201).send(quotationofuser);
 });
 
-app.get("/get-item-quotation", async (req, res) => {
+app.post("/get-item-quotation", async (req, res) => {
   const { client_id, quotation_id } = req.body;
   const quotation = await getitemwithquotation(client_id, quotation_id);
   res.status(201).send(quotation);
+});
+
+app.post("/delete-item/:id", async (req, res) => {
+  const { id } = req.body;
+  const item = await deleteitem(id);
+  res.status(201).send(item);
 });
 
 // Notes & Deviation
