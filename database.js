@@ -235,6 +235,18 @@ const getnotewithquotationandrevised = async (
   return result;
 };
 
+const deletenote = async (id) => {
+  const [result] = await pool.query(
+    `
+      DELETE FROM notes WHERE id=${id}
+    `
+  );
+
+  return result;
+};
+
+// Terms & Deviations
+
 const addterm = async (
   price,
   delivery,
@@ -334,6 +346,7 @@ module.exports = {
   getnote,
   getnotewithquotation,
   getnotewithquotationandrevised,
+  deletenote,
   addterm,
   getterm,
   gettermwithquotation,

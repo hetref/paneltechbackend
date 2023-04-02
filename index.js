@@ -19,6 +19,7 @@ const {
   getClients,
   getClient,
   deleteitem,
+  deletenote,
 } = require("./database");
 
 const app = express();
@@ -169,25 +170,31 @@ app.post("/add-note", async (req, res) => {
   res.status(201).send(note);
 });
 
-app.get("/get-note", async (req, res) => {
+app.post("/get-note", async (req, res) => {
   const { client_id } = req.body;
   const note = await getnote(client_id);
   res.status(201).send(note);
 });
 
-app.get("/get-note-quotation", async (req, res) => {
+app.post("/get-note-quotation", async (req, res) => {
   const { client_id, quotation_id } = req.body;
   const note = await getnotewithquotation(client_id, quotation_id);
   res.status(201).send(note);
 });
 
-app.get("/get-note-quotation-revised", async (req, res) => {
+app.post("/get-note-quotation-revised", async (req, res) => {
   const { client_id, quotation_id, revised_no_quotation } = req.body;
   const note = await getnotewithquotationandrevised(
     client_id,
     quotation_id,
     revised_no_quotation
   );
+  res.status(201).send(note);
+});
+
+app.post("/delete-note", async (req, res) => {
+  const { id } = req.body;
+  const note = await deletenote(id);
   res.status(201).send(note);
 });
 
