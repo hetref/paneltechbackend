@@ -329,6 +329,8 @@ const gettermwithquotationandrevised = async (
   return result;
 };
 
+// Exports
+
 module.exports = {
   addClients,
   getClients,
