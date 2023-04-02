@@ -23,7 +23,6 @@ const {
 const app = express();
 
 app.use(express.json());
-
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -91,7 +90,7 @@ app.post("/add-quotation", async (req, res) => {
   res.status(201).send(quotation);
 });
 
-app.get("/get-quotation-user", async (req, res) => {
+app.post("/get-quotation-user", async (req, res) => {
   const { client_id } = req.body;
   const quotationofuser = await getquotationofuser(client_id);
   res.status(201).send(quotationofuser);

@@ -121,7 +121,6 @@ const additem = async (
   quantity,
   unit_price,
   item_description,
-  item_id,
   client_id,
   quotation_id,
   revised_no,
@@ -129,7 +128,7 @@ const additem = async (
 ) => {
   const [result] = await pool.query(
     `
-          INSERT INTO items (model_no, hsn_code, quantity, unit_price, item_description, item_id, client_id, quotation_id, revised_no, revised_no_quotation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO items (model_no, hsn_code, quantity, unit_price, item_description, client_id, quotation_id, revised_no, revised_no_quotation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
     [
       model_no,
@@ -137,7 +136,6 @@ const additem = async (
       quantity,
       unit_price,
       item_description,
-      item_id,
       client_id,
       quotation_id,
       revised_no,
