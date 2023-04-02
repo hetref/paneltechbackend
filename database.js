@@ -46,10 +46,20 @@ const addClients = async (
   return result;
 };
 
-const getClients = async (email) => {
+const getClients = async () => {
   const [result] = await pool.query(
     `
-          SELECT * FROM add_clients WHERE email=${email}
+          SELECT * FROM add_clients
+      `
+  );
+
+  return result;
+};
+
+const getClient = async (id) => {
+  const [result] = await pool.query(
+    `
+          SELECT * FROM add_clients WHERE id=${id}
       `
   );
 
@@ -68,7 +78,7 @@ const addquotation = async (
 ) => {
   const [result] = await pool.query(
     `
-          INSERT INTO add_clients (company_name, address_line1, address_line2, address_line3, phone_no, kind_attn, email, fax_no) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO quotation (customer_enquiry_no, enquiry_date, contact_person, contact_person_phone, contact_person_email, client_id, revised_no) VALUES (?, ?, ?, ?, ?, ?, ?)
       `,
     [
       company_name,
@@ -300,6 +310,7 @@ const gettermwithquotationandrevised = async (
 module.exports = {
   addClients,
   getClients,
+  getClient,
   addquotation,
   getquotation,
   getquotationofuser,

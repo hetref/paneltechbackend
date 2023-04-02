@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const {
   addClients,
   addquotation,
@@ -15,11 +16,15 @@ const {
   gettermwithquotationandrevised,
   gettermwithquotation,
   getterm,
+  getClients,
+  getClient,
 } = require("./database");
 
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -51,27 +56,14 @@ app.post("/add-client", async (req, res) => {
   res.status(201).send(client);
 });
 
+app.get("/get-clients", async (req, res) => {
+  const clients = await getClients();
+  res.status(201).send(clients);
+});
+
 app.get("/get-client", async (req, res) => {
-  const {
-    company_name,
-    address_line1,
-    address_line2,
-    address_line3,
-    phone_no,
-    kind_attn,
-    email,
-    fax_no,
-  } = req.body;
-  const client = await addClients(
-    company_name,
-    address_line1,
-    address_line2,
-    address_line3,
-    phone_no,
-    kind_attn,
-    email,
-    fax_no
-  );
+  const { id } = req.body;
+  const client = await getClient(id);
   res.status(201).send(client);
 });
 
