@@ -31,6 +31,22 @@ INSERT INTO quotation
 (customer_enquiry_no, enquiry_date, contact_person, contact_person_phone, contact_person_email, client_id, revised_no)
 VALUES ("121", NOW(), "Aryan Shinde", "8097296453", "shindearyan179@gmail.com", "1", "0");
 
+ALTER TABLE
+	quotation
+ADD
+	quotation_number VARCHAR;
+
+ALTER TABLE
+	items
+ADD
+	total_quantity_price INTEGER;
+
+-- Update Syntax
+UPDATE table_name
+SET column_name1 = new-value1,   
+    column_name2=new-value2
+WHERE id="";
+
 CREATE TABLE items (
     id integer PRIMARY KEY AUTO_INCREMENT,
     model_no integer NOT NULL,
@@ -49,7 +65,12 @@ INSERT INTO items
 (model_no, hsn_code, quantity, unit_price, item_description, client_id, quotation_id, revised_no, revised_no_quotation) 
 VALUES ("1092837465", "4e7f7w8efw8yf9f8", "2", "20000", "This is a description", "1", "1", "0", "1");
 
+-- Delete data
 DELETE FROM items WHERE id=7;
+
+-- Update Datatype of a column
+ALTER TABLE items
+MODIFY COLUMN total_quantity_price TEXT;
 
 CREATE TABLE notes (
     id integer PRIMARY KEY AUTO_INCREMENT,

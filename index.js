@@ -62,7 +62,7 @@ app.get("/get-clients", async (req, res) => {
   res.status(201).send(clients);
 });
 
-app.get("/get-client", async (req, res) => {
+app.post("/get-client", async (req, res) => {
   const { id } = req.body;
   const client = await getClient(id);
   res.status(201).send(client);
@@ -79,6 +79,7 @@ app.post("/add-quotation", async (req, res) => {
     contact_person_email,
     client_id,
     revised_no,
+    quotation_number,
   } = req.body;
   const quotation = await addquotation(
     customer_enquiry_no,
@@ -87,7 +88,8 @@ app.post("/add-quotation", async (req, res) => {
     contact_person_phone,
     contact_person_email,
     client_id,
-    revised_no
+    revised_no,
+    quotation_number
   );
   res.status(201).send(quotation);
 });
@@ -98,7 +100,7 @@ app.post("/get-quotation-user", async (req, res) => {
   res.status(201).send(quotationofuser);
 });
 
-app.get("/get-quotation", async (req, res) => {
+app.post("/get-quotation", async (req, res) => {
   const { client_id, revised_no } = req.body;
   const quotation = await getquotation(client_id, revised_no);
   res.status(201).send(quotation);
@@ -117,6 +119,7 @@ app.post("/add-item", async (req, res) => {
     quotation_id,
     revised_no,
     revised_no_quotation,
+    total_quantity_price,
   } = req.body;
   const item = await additem(
     model_no,
@@ -127,12 +130,13 @@ app.post("/add-item", async (req, res) => {
     client_id,
     quotation_id,
     revised_no,
-    revised_no_quotation
+    revised_no_quotation,
+    total_quantity_price
   );
   res.status(201).send(item);
 });
 
-app.get("/get-item", async (req, res) => {
+app.post("/get-item", async (req, res) => {
   const { client_id } = req.body;
   const quotationofuser = await getitem(client_id);
   res.status(201).send(quotationofuser);
@@ -254,7 +258,7 @@ app.get("/get-term-quotation", async (req, res) => {
   res.status(201).send(term);
 });
 
-app.get("/get-term-quotation-revised", async (req, res) => {
+app.post("/get-term-quotation-revised", async (req, res) => {
   const { client_id, quotation_id, revised_no_quotation } = req.body;
   const term = await gettermwithquotationandrevised(
     client_id,

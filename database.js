@@ -67,28 +67,28 @@ const getClient = async (id) => {
 };
 
 const addquotation = async (
-  company_name,
-  address_line1,
-  address_line2,
-  address_line3,
-  phone_no,
-  kind_attn,
-  email,
-  fax_no
+  customer_enquiry_no,
+  enquiry_date,
+  contact_person,
+  contact_person_phone,
+  contact_person_email,
+  client_id,
+  revised_no,
+  quotation_number
 ) => {
   const [result] = await pool.query(
     `
-          INSERT INTO quotation (customer_enquiry_no, enquiry_date, contact_person, contact_person_phone, contact_person_email, client_id, revised_no) VALUES (?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO quotation (customer_enquiry_no, enquiry_date, contact_person, contact_person_phone, contact_person_email, client_id, revised_no, quotation_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `,
     [
-      company_name,
-      address_line1,
-      address_line2,
-      address_line3,
-      phone_no,
-      kind_attn,
-      email,
-      fax_no,
+      customer_enquiry_no,
+      enquiry_date,
+      contact_person,
+      contact_person_phone,
+      contact_person_email,
+      client_id,
+      revised_no,
+      quotation_number,
     ]
   );
 
@@ -124,11 +124,12 @@ const additem = async (
   client_id,
   quotation_id,
   revised_no,
-  revised_no_quotation
+  revised_no_quotation,
+  total_quantity_price
 ) => {
   const [result] = await pool.query(
     `
-          INSERT INTO items (model_no, hsn_code, quantity, unit_price, item_description, client_id, quotation_id, revised_no, revised_no_quotation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO items (model_no, hsn_code, quantity, unit_price, item_description, client_id, quotation_id, revised_no, revised_no_quotation, total_quantity_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
     [
       model_no,
@@ -140,6 +141,7 @@ const additem = async (
       quotation_id,
       revised_no,
       revised_no_quotation,
+      total_quantity_price,
     ]
   );
 
